@@ -8,7 +8,7 @@ DATA_PATH = './bible_data'
 
 def bibleXml():
     """Get the xml data for the Bible."""
-    bible = xmlRead(os.path.abspath(os.path.join(os.path.dirname(__file__), "{}/{}".format(DATA_PATH, 'nasb.xml'))))
+    bible = xmlRead(os.path.abspath(os.path.join(os.path.dirname(__file__), '{}/{}'.format(DATA_PATH, 'nasb.xml'))))
     return bible
 
 

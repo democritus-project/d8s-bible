@@ -78,7 +78,7 @@ def bibleReferencesFind(text: str):
             if ref_has_two_chapters:
                 second_chapter = dict_reference['chapter'][1].tup[0]
 
-                # if there is only one verse, we need to disambiguate whether or not the value parsed as the second_chapter is a chapter or a verse (e.g. the "9" in "1 John 1:1-9")
+                # if there is only one verse, we need to disambiguate whether or not the value parsed as the second_chapter is a chapter or a verse (e.g. the '9' in '1 John 1:1-9')
                 if ref_has_one_verse:
                     # if this second_chapter is greater than the previous verse (and the previous verse has already been used), we are going to assume this number is another verse
                     second_chapter_greater_than_previous_verse = int(second_chapter) > int(ref_first_verse)
@@ -103,7 +103,7 @@ def bibleReferencesFind(text: str):
                     verse_a = dict_reference['verse'][0].tup[0]
 
         new_reference = BiblePassage(
-            book=book, chapter_a=chapter_a, chapter_b=chapter_b, verse_a=verse_a, verse_b=verse_b
+            book=book, chapter_a=chapter_a, chapter_b=chapter_b, verse_a=verse_a, verse_b=verse_b,
         )
         bible_references.append(new_reference)
 
@@ -247,7 +247,7 @@ BIBLE_BOOK_ENGLISH_NAMES_2_OSIS_MAPPING = {
     # '2 baruch': '2Bar',
     # 'letter of baruch': 'EpBar',
     # 'additional syriac psalms': '5ApocSyrPss',
-    # "josephus' jewish war vi": 'JosephusJWvi',
+    # 'josephus\' jewish war vi': 'JosephusJWvi',
     # '1 clement': '1Clem',
     # '2 clement': '2Clem',
     # 'ignatius to the ephesians': 'IgnEph',
@@ -266,7 +266,7 @@ BIBLE_BOOK_ENGLISH_NAMES_2_OSIS_MAPPING = {
     # 'shepherd of hermas, similitudes': 'Herm.Sim',
     # 'shepherd of hermas, visions': 'Herm.Vis',
     # 'diognetus': 'Diogn',
-    # "apostles' creed": 'AposCreed',
+    # 'apostles\' creed': 'AposCreed',
     # 'fragments of papias': 'PapFrag',
     # 'reliques of the elders': 'RelElders',
     # 'fragment of quadratus': 'QuadFrag',
