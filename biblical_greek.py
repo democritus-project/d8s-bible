@@ -6,8 +6,13 @@ import os
 import sys
 from typing import Union, List
 
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), ".")))
-import decorators
+from democritus_core import xmlRead, xml2Json, textJoin, decorators
+
+# sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), ".")))
+# import decorators
+
+# TODO: move this to a central location (this path exists in bible.py too)
+DATA_PATH = './bible_data'
 
 
 GreekWord = collections.namedtuple(
@@ -92,3 +97,30 @@ def biblicalGreekWordStemType(word: str) -> str:
 
 
 # todo: write function to find details about a given verb (aspect, mode, etc...)
+
+
+def bible_text_greek_xml():
+    """."""
+    bible = xmlRead(os.path.abspath(os.path.join(os.path.dirname(__file__), '{}/{}'.format(DATA_PATH, 'sblgnt.xml'))))
+    return bible
+
+
+def bible_text_greek(passage: str):
+    """Get the Greek text for the given bible passage."""
+    bible_xml = bible_text_greek_xml()
+    found_verse = False
+    text = None
+    words = []
+
+    for i in bible_xml.iter():
+        if i.attrib.get('id', '').lower() == passage.lower():
+            found_verse = True
+        # if i has an id (which means that i is a verse) and we have already found the verse we are looking for, we have collected all the words for the desired verse and are done... we've reached the next verse.
+        elif i.attrib.get('id') and found_verse:
+            break
+        else:
+            if found_verse:
+                words.append(i.text)
+
+    text = ''.join(words)
+    return text

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from biblical_greek import biblicalGreekWordInfo
+from biblical_greek import biblicalGreekWordInfo, bible_text_greek
 
 
 def test_biblicalGreekWordInfo_1():
@@ -33,3 +33,11 @@ def test_biblicalGreekWordInfo_1():
 def test_biblicalGreekWordInfo_bad_input():
     results = biblicalGreekWordInfo('foo')
     assert len(results) == 0
+
+
+def test_bible_text_greek_1():
+    results = bible_text_greek('john 1:2')
+    assert results == 'οὗτος ἦν ἐν ἀρχῇ πρὸς τὸν θεόν.  '
+
+    results = bible_text_greek('John 1:2')
+    assert results == 'οὗτος ἦν ἐν ἀρχῇ πρὸς τὸν θεόν.  '
