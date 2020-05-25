@@ -105,6 +105,8 @@ def bible_text_greek_xml():
     return bible
 
 
+# TODO: eventually, I'd like to be able to handle passages like "Romans 1:1-18" and return the data for all of those verses, but I can't do that yet.
+# TODO: standardize the passage argument
 def bible_text_greek(passage: str):
     """Get the Greek text for the given bible passage."""
     bible_xml = bible_text_greek_xml()
