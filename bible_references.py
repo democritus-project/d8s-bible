@@ -3,7 +3,15 @@
 
 import collections
 
-from democritus_core import typings, bible_reference_grammar
+from democritus_core import (
+    typings,
+    pyparsingParseResultGetTokenDict,
+    textJoin,
+    templateRender,
+    html2Json,
+    get,
+    lowercase,
+)
 
 
 # TODO: update this such that the chapter and verses are optional
@@ -22,8 +30,6 @@ def isBibleReference(possible_bible_reference: str) -> bool:
 
 def bibleReferenceStandardize(bible_reference: str) -> typings.ListString:
     """."""
-    from templates import templateRender
-
     standardized_references = []
 
     references = bibleReferencesFind(bible_reference)
@@ -38,10 +44,9 @@ def bibleReferenceStandardize(bible_reference: str) -> typings.ListString:
 
 # TODO: set the return type to a list of bible reference objects
 def bibleReferencesFind(text: str):
-    from pyparsing_grammar_library.pyparsing_utils import parseResultGetTokenDict
-    from strings import textJoin
+    from bible_references_grammars import bible_reference_grammar
 
-    references = bible_reference.searchString(text)
+    references = bible_reference_grammar.searchString(text)
 
     bible_references = []
 
@@ -49,7 +54,7 @@ def bibleReferencesFind(text: str):
 
     for reference in references:
         # TODO: there is probably a better way to access the _ParseResults__tokdict, but this works for now
-        dict_reference = parseResultGetTokenDict(reference)
+        dict_reference = pyparsingParseResultGetTokenDict(reference)
 
         book = dict_reference['book'][0].tup[0]
 
@@ -277,9 +282,6 @@ BIBLE_BOOK_ENGLISH_NAMES_2_OSIS_MAPPING = {
 
 def bibleBookNamesEnglish2OsisMappings():
     """Get data from the first table in https://wiki.crosswire.org/OSIS_Book_Abbreviations and return a mapping from english names to OSIS names."""
-    from html_data import html2Json
-    from networking import get
-
     url = 'https://wiki.crosswire.org/OSIS_Book_Abbreviations'
     tables = html2Json(get(url), convert_only_tables=True)
 
@@ -299,8 +301,6 @@ def bibleBookName2Osis(book_name: str) -> typings.StringOrNone:
     """Convert the given book name (as either the english name or USFM format) into OSIS.
 
     Helpful sources: [https://wiki.crosswire.org/OSIS_Book_Abbreviations]"""
-    from strings import lowercase
-
     # TODO: handle book_name's which are in USFM format
 
     osis_book_name = BIBLE_BOOK_ENGLISH_NAMES_2_OSIS_MAPPING.get(lowercase(book_name))
@@ -414,9 +414,6 @@ BIBLE_BOOK_ENGLISH_NAMES_2_USFM_MAPPING = {
 
 def bibleBookNamesEnglish2UsfmMappings():
     """Get data from the first table in http://ubsicap.github.io/usfm/identification/books.html and return a mapping from english names to USFM names."""
-    from html_data import html2Json
-    from networking import get
-
     url = 'http://ubsicap.github.io/usfm/identification/books.html'
     tables = html2Json(get(url), convert_only_tables=True)
 
@@ -431,8 +428,6 @@ def bibleBookName2Usfm(book_name: str) -> typings.StringOrNone:
     """Convert the given book name (as either the english name or OSIS format) into USFM.
 
     Helpful sources: [http://ubsicap.github.io/usfm/identification/books.html]"""
-    from strings import lowercase
-
     # TODO: handle book_name's which are in OSIS format
 
     usfm_book_name = BIBLE_BOOK_ENGLISH_NAMES_2_USFM_MAPPING.get(lowercase(book_name))

@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from democritus_core import xmlRead, xml2String, metaOutput
+import os
+
+from democritus_core import xmlRead, xml2String, lowercase, xml2Json
 
 DATA_PATH = './bible_data'
 
@@ -12,21 +14,26 @@ def bibleXml():
     return bible
 
 
+# TODO: RETURN JSON RATHER THAN XML (AND PROBABLY INCLUDE A REFERENCE TO JSON IN THE FUNCTION NAME (E.G. bibleBookJson ))
 def bibleBook(book):
     """Get the xml data for the given book of the Bible."""
-    from strings import lowercase
-
     bible_xml = bibleXml()
     for book_xml in bible_xml:
         if lowercase(book_xml.attrib['name']) == lowercase(book):
             return book_xml
-    metaOutput('Unable to find the book named "{}" in the bible'.format(book))
+    print('Unable to find the book named "{}" in the bible'.format(book))
+
+
+# def bibleBookJson
+# def bibleBookText
+# def bibleBookChapterJson
+# def bibleBookChapterText
+# def bibleBookChapterVerseJson
+# def bibleBookChapterVerseText
 
 
 def bibleJson():
     """Get json data for the bible."""
-    from xml_data import xml2Json
-
     bible_xml = bibleXml()
     bible_json = xml2Json(bible_xml)
     return bible_json
@@ -62,7 +69,7 @@ def bibleBookChapter(book, chapter_number):
     for chapter_xml in book_xml:
         if chapter_xml.attrib['name'] == str(chapter_number):
             return chapter_xml
-    metaOutput('Unable to find data for chapter {} in {}'.format(chapter_number, book))
+    print('Unable to find data for chapter {} in {}'.format(chapter_number, book))
 
 
 def bibleBookChapterString(book, chapter_number):
@@ -72,6 +79,8 @@ def bibleBookChapterString(book, chapter_number):
 
 def bibleBookChapterVerses(book, chapter_number):
     """Get the verses in the given chapter."""
+    # todo: convert chapter_number to an int
+    # todo: I don't think this function is working properly
     book_xml = bibleBook(book)
     return book_xml[chapter_number - 1]
 
