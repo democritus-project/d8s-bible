@@ -2,9 +2,9 @@
 # -*- coding: utf-8 -*-
 
 from pyparsing import Or, Word, nums
-from bible import bibleBooks
+from bible import bible_books
 
-bible_book_grammar = Or(bibleBooks())
+bible_book_grammar = Or(bible_books())
 bible_verse_grammar = bible_chapter_grammar = Word(nums)
 bible_location_grammar = (
     bible_chapter_grammar('chapter') + Word(':') + bible_verse_grammar('verse')

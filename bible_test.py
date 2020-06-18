@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from bible import bibleBookWordCountByChapter
+from bible import bible_book_word_count_by_chapter
 
 
-def test_bibleBookWordCountByChapter_1():
-    result = bibleBookWordCountByChapter('leviticus', 'atonement')
+def test_bible_book_word_count_by_chapter_1():
+    result = bible_book_word_count_by_chapter('leviticus', 'atonement')
     assert isinstance(result, dict)
     assert result == {
         1: 1,
@@ -37,7 +37,7 @@ def test_bibleBookWordCountByChapter_1():
         27: 0,
     }
 
-    result = bibleBookWordCountByChapter('leviticus')
+    result = bible_book_word_count_by_chapter('leviticus')
     assert isinstance(result, dict)
     assert result == {
         1: 528,

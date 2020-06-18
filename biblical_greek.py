@@ -6,7 +6,7 @@ import os
 import sys
 from typing import Union, List
 
-from democritus_core import xmlRead, xml2Json, textJoin, decorators
+from democritus_core import xml_read, decorators
 
 # sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), ".")))
 # import decorators
@@ -21,7 +21,7 @@ GreekWord = collections.namedtuple(
 
 
 # TODO: I would like to cache the data retrieved by this function
-@decorators.urlEncodeFirstArg
+@decorators.url_encode_first_arg
 def biblicalGreekWordInfo(word: str) -> List[GreekWord]:
     from networking import get
 
@@ -101,7 +101,7 @@ def biblicalGreekWordStemType(word: str) -> str:
 
 def bible_text_greek_xml():
     """."""
-    bible = xmlRead(os.path.abspath(os.path.join(os.path.dirname(__file__), '{}/{}'.format(DATA_PATH, 'sblgnt.xml'))))
+    bible = xml_read(os.path.abspath(os.path.join(os.path.dirname(__file__), '{}/{}'.format(DATA_PATH, 'sblgnt.xml'))))
     return bible
 
 
