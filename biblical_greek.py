@@ -115,14 +115,17 @@ def bible_text_greek(passage: str):
     words = []
 
     for i in bible_xml.iter():
-        if i.attrib.get('id', '').lower() == passage.lower():
-            found_verse = True
-        # if i has an id (which means that i is a verse) and we have already found the verse we are looking for, we have collected all the words for the desired verse and are done... we've reached the next verse.
-        elif i.attrib.get('id') and found_verse:
-            break
-        else:
-            if found_verse:
+        if found_verse:
+            # if i is a tag containing words/markings for the verse, add it
+            if i.tag in ('prefix', 'w', 'suffix'):
                 words.append(i.text)
+            # if i is not a tag containing words/markings for the verse, we are done collecting data for the verse
+            else:
+                break
+        else:
+            if i.attrib.get('id', '').lower() == passage.lower():
+                found_verse = True
 
-    text = ''.join(words)
+    if found_verse:
+        text = ''.join(words)
     return text

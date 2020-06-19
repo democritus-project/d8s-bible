@@ -17,8 +17,8 @@ def bible_xml():
 # TODO: RETURN JSON RATHER THAN XML (AND PROBABLY INCLUDE A REFERENCE TO JSON IN THE FUNCTION NAME (E.G. bible_book_json ))
 def bible_book(book):
     """Get the xml data for the given book of the Bible."""
-    bible_xml = bible_xml()
-    for book_xml in bible_xml:
+    bible_xml_data = bible_xml()
+    for book_xml in bible_xml_data:
         if lowercase(book_xml.attrib['bname']) == lowercase(book):
             return book_xml
     print('Unable to find the book named "{}" in the bible'.format(book))
