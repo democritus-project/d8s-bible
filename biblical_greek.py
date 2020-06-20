@@ -22,7 +22,7 @@ GreekWord = collections.namedtuple(
 
 # TODO: I would like to cache the data retrieved by this function
 @decorators.url_encode_first_arg
-def biblicalGreekWordInfo(word: str) -> List[GreekWord]:
+def biblical_greek_word_info(word: str) -> List[GreekWord]:
     from networking import get
 
     word_data = []
@@ -51,48 +51,48 @@ def biblicalGreekWordInfo(word: str) -> List[GreekWord]:
     return word_data
 
 
-def biblicalGreekWordStem(word: str) -> str:
-    word_info = biblicalGreekWordInfo(word)
+def biblical_greek_word_stem(word: str) -> str:
+    word_info = biblical_greek_word_info(word)
     return word_info.stem
 
 
-def biblicalGreekWordLemma(word: str) -> str:
+def biblical_greek_word_lemma(word: str) -> str:
     # TODO: find the data for the nominative singular word and return that
     pass
 
 
 # todo: enumerate the possible parts of speech and provide as the return types (e.g. `Union['S', 'P']`)
-def biblicalGreekWordPartOfSpeech(word: str) -> str:
-    word_info = biblicalGreekWordInfo(word)
+def biblical_greek_word_part_of_speech(word: str) -> str:
+    word_info = biblical_greek_word_info(word)
     return word_info.part_of_speech
 
 
-def biblicalGreekWordNumber(word: str) -> Union['singular', 'plural']:
-    word_info = biblicalGreekWordInfo(word)
+def biblical_greek_word_number(word: str) -> Union['singular', 'plural']:
+    word_info = biblical_greek_word_info(word)
     return word_info.number
 
 
-def biblicalGreekWordCase(word: str) -> Union['nominative', 'dative', 'genitive', 'accusative', 'vocative']:
-    word_info = biblicalGreekWordInfo(word)
+def biblical_greek_word_case(word: str) -> Union['nominative', 'dative', 'genitive', 'accusative', 'vocative']:
+    word_info = biblical_greek_word_info(word)
     return word_info.case
 
 
-def biblicalGreekWordGender(word: str) -> Union['feminine', 'masculine', 'neuter']:
-    word_info = biblicalGreekWordInfo(word)
+def biblical_greek_word_gender(word: str) -> Union['feminine', 'masculine', 'neuter']:
+    word_info = biblical_greek_word_info(word)
     return word_info.gender
 
 
 # todo: enumerate the possible declension combinations and provide as the return types (e.g. `Union['S', 'P']`)
-def biblicalGreekWordDeclension(word: str) -> str:
+def biblical_greek_word_declension(word: str) -> str:
     """."""
-    word_info = biblicalGreekWordInfo(word)
+    word_info = biblical_greek_word_info(word)
     return word_info.declension
 
 
 # todo: enumerate the possible stem types and provide as the return types (e.g. `Union['S', 'P']`)
-def biblicalGreekWordStemType(word: str) -> str:
+def biblical_greek_word_stem_type(word: str) -> str:
     """."""
-    word_info = biblicalGreekWordInfo(word)
+    word_info = biblical_greek_word_info(word)
     return word_info.stem_type
 
 

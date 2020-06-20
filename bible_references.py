@@ -19,20 +19,20 @@ BiblePassage = collections.namedtuple('BiblePassage', ['book', 'chapter_a', 'ver
 BibleRange = collections.namedtuple('BibleRange', ['passage_a', 'passage_b'])
 
 
-def isBibleReference(possible_bible_reference: str) -> bool:
+def is_bible_reference(possible_bible_reference: str) -> bool:
     """."""
-    references = bibleReferencesFind(possible_bible_reference)
+    references = bible_references_find(possible_bible_reference)
     if references and len(references) == 1:
         return True
     else:
         return False
 
 
-def bibleReferenceStandardize(bible_reference: str) -> ListOfStrings:
+def bible_reference_standardize(bible_reference: str) -> ListOfStrings:
     """."""
     standardized_references = []
 
-    references = bibleReferencesFind(bible_reference)
+    references = bible_references_find(bible_reference)
 
     for ref in references:
         template = '{{ book }}{% if chapter_a %} {{ chapter_a }}{% endif %}{% if verse_a %}{% if chapter_a %}:{% else %} {% endif %}{{ verse_a }}{% endif %}{% if chapter_b or verse_b %}{% if chapter_b %} {% endif %}-{% if chapter_b %} {% endif %}{% endif %}{% if chapter_b %}{{ chapter_b }}{% endif %}{% if verse_b %}{% if chapter_b %}:{% endif %}{{ verse_b }}{% endif %}'
@@ -43,7 +43,7 @@ def bibleReferenceStandardize(bible_reference: str) -> ListOfStrings:
 
 
 # TODO: set the return type to a list of bible reference objects
-def bibleReferencesFind(text: str):
+def bible_references_find(text: str):
     from bible_references_grammars import bible_reference_grammar
 
     references = bible_reference_grammar.searchString(text)
@@ -118,7 +118,7 @@ def bibleReferencesFind(text: str):
 # TODO: in the functions below, there are different names for the same books (e.g. song of songs vs. song of solomon)
 
 
-BIBLE_BOOK_ENGLISH_NAMES_2_OSIS_MAPPING = {
+BIBLE_BOOK_ENGLISH_NAMES_TO_OSIS_MAPPING = {
     'genesis': 'Gen',
     'exodus': 'Exod',
     'leviticus': 'Lev',
@@ -280,7 +280,7 @@ BIBLE_BOOK_ENGLISH_NAMES_2_OSIS_MAPPING = {
 }
 
 
-def bibleBookNamesEnglish2OsisMappings():
+def bible_book_names_english_to_osis_mappings():
     """Get data from the first table in https://wiki.crosswire.org/OSIS_Book_Abbreviations and return a mapping from english names to OSIS names."""
     url = 'https://wiki.crosswire.org/OSIS_Book_Abbreviations'
     tables = html_to_json(get(url), convert_only_tables=True)
@@ -297,17 +297,17 @@ def bibleBookNamesEnglish2OsisMappings():
     return english_to_osis_book_name_mappings
 
 
-def bibleBookName2Osis(book_name: str) -> StringOrNone:
+def bible_book_name_to_osis(book_name: str) -> StringOrNone:
     """Convert the given book name (as either the english name or USFM format) into OSIS.
 
     Helpful sources: [https://wiki.crosswire.org/OSIS_Book_Abbreviations]"""
     # TODO: handle book_name's which are in USFM format
 
-    osis_book_name = BIBLE_BOOK_ENGLISH_NAMES_2_OSIS_MAPPING.get(lowercase(book_name))
+    osis_book_name = BIBLE_BOOK_ENGLISH_NAMES_TO_OSIS_MAPPING.get(lowercase(book_name))
     return osis_book_name
 
 
-BIBLE_BOOK_ENGLISH_NAMES_2_USFM_MAPPING = {
+BIBLE_BOOK_ENGLISH_NAMES_TO_USFM_MAPPING = {
     'genesis': 'GEN',
     'exodus': 'EXO',
     'leviticus': 'LEV',
@@ -412,7 +412,7 @@ BIBLE_BOOK_ENGLISH_NAMES_2_USFM_MAPPING = {
 }
 
 
-def bibleBookNamesEnglish2UsfmMappings():
+def bible_book_names_english_to_usfm_mappings():
     """Get data from the first table in http://ubsicap.github.io/usfm/identification/books.html and return a mapping from english names to USFM names."""
     url = 'http://ubsicap.github.io/usfm/identification/books.html'
     tables = html_to_json(get(url), convert_only_tables=True)
@@ -424,11 +424,11 @@ def bibleBookNamesEnglish2UsfmMappings():
     return english_to_usfm_book_name_mappings
 
 
-def bibleBookName2Usfm(book_name: str) -> StringOrNone:
+def bible_book_name_2_usfm(book_name: str) -> StringOrNone:
     """Convert the given book name (as either the english name or OSIS format) into USFM.
 
     Helpful sources: [http://ubsicap.github.io/usfm/identification/books.html]"""
     # TODO: handle book_name's which are in OSIS format
 
-    usfm_book_name = BIBLE_BOOK_ENGLISH_NAMES_2_USFM_MAPPING.get(lowercase(book_name))
+    usfm_book_name = BIBLE_BOOK_ENGLISH_NAMES_TO_USFM_MAPPING.get(lowercase(book_name))
     return usfm_book_name

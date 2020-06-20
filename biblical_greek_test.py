@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from biblical_greek import biblicalGreekWordInfo, bible_text_greek
+from biblical_greek import biblical_greek_word_info, bible_text_greek
 
 
-def test_biblicalGreekWordInfo_1():
-    results = biblicalGreekWordInfo('φαῦλον')
+def test_biblical_greek_word_info_1():
+    results = biblical_greek_word_info('φαῦλον')
     print(results)
     assert len(results) == 9
     assert results[0].stem == 'φαῡλ'
@@ -17,7 +17,7 @@ def test_biblicalGreekWordInfo_1():
     assert results[0].number == 'singular'
     assert results[0].stem_type == 'os_h_on'
 
-    results = biblicalGreekWordInfo('φαῦλος')
+    results = biblical_greek_word_info('φαῦλος')
     print(results)
     assert len(results) == 3
     assert results[0].stem == 'φαῡλ'
@@ -30,8 +30,8 @@ def test_biblicalGreekWordInfo_1():
     assert results[0].stem_type == 'os_h_on'
 
 
-def test_biblicalGreekWordInfo_bad_input():
-    results = biblicalGreekWordInfo('foo')
+def test_biblical_greek_word_info_bad_input():
+    results = biblical_greek_word_info('foo')
     assert len(results) == 0
 
 
